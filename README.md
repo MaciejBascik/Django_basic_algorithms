@@ -22,4 +22,8 @@ Incorrect example:
 
 #### Whats the purpose? 
 
-It's school project but can be also used for education purposes. 
+It's school project but could be also used for education purposes. 
+
+#### ChangeLog
+
+(14.05.2023 22:19) Fixed SzyfrCezara by fixing multiple posting causing multiple results displayed on the page
