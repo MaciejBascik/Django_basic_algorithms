@@ -1,0 +1,11 @@
+{%extends 'main/base.html'%}
+{%block content%}
+<h1>Wprowadzenie danych</h1><br>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit"><br><br>
+    <h5>Algorytm służący do sprawdzania poprawności wpisania numeru. Jest on używany m.in. do walidacji numerów kart
+        kredytowych, ciągów liczbowych itd.</h5>
+</form>
+{%endblock%}

@@ -1,0 +1,14 @@
+{%extends 'main/base.html'%}
+{%block content%}
+<div class="text-center">
+    <h1>Wprowadzenie danych</h1><br>
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit"><br><br>
+        <h5>Algorytm flagii polskiej sortuje podane przez użytkownika liczby w 2 grupy liczb, które mają odnosić się
+            do 2 kolorów flagi Polski.</h5>
+    </form>
+
+</div>
+{%endblock%}

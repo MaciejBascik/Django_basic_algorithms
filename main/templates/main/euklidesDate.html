@@ -1,0 +1,18 @@
+{%extends 'main/base.html'%}
+{%block content%}
+<div class="text-center">
+    <h1>Wprowadzenie danych</h1><br>
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit"><br><br>
+        <h5>Algorytm Euklidesa to algorytm wyznaczania największego wspólnego dzielnika dwóch liczb. </h5>
+        <!--  <label for="literka">Chcesz zaszyfrować czy odszyfrować: (wpisz z lub o)></label> 
+        <input type="text" name="literka"><br>
+        <label for="tekst">Podaj tekst do zaszyfrowania/odszyfrowania:</label>
+        <input type="text" name="tekst"><br><br>-->
+
+    </form>
+
+</div>
+{%endblock%}

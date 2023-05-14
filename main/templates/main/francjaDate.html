@@ -1,0 +1,19 @@
+{%extends 'main/base.html'%}
+{%block content%}
+<div class="text-center">
+    <h1>Wprowadzenie danych</h1><br>
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit"><br><br>
+        <h5>Algorytm flagii francuskiej sortuje podane przez użytkownika liczby w 3 grupy liczb, które mają odnosić się
+            do 3 kolorów flagi Francji.</h5>
+        <!--  <label for="literka">Chcesz zaszyfrować czy odszyfrować: (wpisz z lub o)></label> 
+        <input type="text" name="literka"><br>
+        <label for="tekst">Podaj tekst do zaszyfrowania/odszyfrowania:</label>
+        <input type="text" name="tekst"><br><br>-->
+
+    </form>
+
+</div>
+{%endblock%}

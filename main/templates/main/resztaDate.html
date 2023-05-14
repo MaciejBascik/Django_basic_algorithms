@@ -1,0 +1,15 @@
+{%extends 'main/base.html'%}
+{%block content%}
+<div class="text-center">
+    <h1>Wprowadzenie danych</h1><br>
+
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit"><br><br>
+        <h5>Algorytm wydawania reszty podaje kwotę wydania reszty jeśli takowo jest potrzebna. Wydaje w jakiej
+            najmniejszej ilości monet i banknotów.</h5>
+    </form>
+
+</div>
+{%endblock%}

@@ -1,0 +1,14 @@
+{%extends 'main/base.html'%}
+{%block content%}
+<div class="text-center">
+    <h1>Wprowadzenie danych</h1><br>
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit"><br><br>
+        <h5>Algorytm sortowania przez wybór polega na wyszukaniu elementu mającego się znaleźć na żądanej pozycji i
+            zamianie miejscami z tym, który jest tam obecnie. </h5>
+    </form>
+
+</div>
+{%endblock%}

@@ -1,0 +1,19 @@
+{%extends 'main/base.html'%}
+{%block content%}
+
+<body><br>
+    <h1 class="text-center">Wybierz odpowiedni algorytm!</h1><br>
+    <div class="text-center">
+        <a href="{% url 'luhnaDate' %}" class="btn btn-primary">Luhna</a>
+        <a href="{% url 'cezarDate' %}" class="btn btn-secondary">Cezar</a>
+        <a href="{% url 'binarnyDate' %}" class="btn btn-success">Wyszukiwanie binarne</a>
+        <a href="{% url 'resztaDate' %}" class="btn btn-danger">Wydawanie reszty</a>
+        <a href="{% url 'francjaDate' %}" class="btn btn-warning">Sortowanie francuskie</a>
+        <a href="{% url 'polskaDate' %}" class="btn btn-info">Sortowanie polskie</a>
+        <a href="{% url 'euklidesDate' %}" class="btn btn-light">Euklides</a>
+        <a href="{% url 'wyborDate' %}" class="btn btn-dark">Sortowanie przez wybór</a>
+        <a href="{% url 'babelkoweDate' %}" class="btn btn-primary">Sortowanie bąbelkowe</a>
+    </div>
+
+</body>
+{%endblock%}
