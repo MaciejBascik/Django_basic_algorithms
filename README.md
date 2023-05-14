@@ -26,4 +26,4 @@ It's school project but could be also used for education purposes.
 
 #### ChangeLog
 
-(14.05.2023 22:19) Fixed SzyfrCezara by fixing multiple posting causing multiple results displayed on the page
+*(14.05.2023 22:19) Fixed SzyfrCezara by fixing multiple posting causing multiple results displayed on the page*
