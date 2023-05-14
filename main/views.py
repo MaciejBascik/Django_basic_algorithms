@@ -29,16 +29,18 @@ def luhna(request, wynik):
     return render(request, 'main/luhna.html', {'wynik': wynik})
 
 
+
 def cezarDate(request):
     if request.method == 'POST':
         form = CezarForm(request.POST)
         if form.is_valid():
-            tekst = form.cleaned_data['tekst']
-            literka = form.cleaned_data['sign']
-            if literka == 'o' or literka == 'O':
-                wynik = Cezar.odszyfruj(tekst)
-            elif literka == 'z' or literka == 'Z':
-                wynik = Cezar.cyfruj(tekst)
+            text = form.cleaned_data['text']
+            key = int(form.cleaned_data['key'])
+            sign = form.cleaned_data['sign']
+            if sign.upper() == 'O':
+                wynik = Cezar.deszyfruj(key, text)
+            elif sign.upper() == 'Z':
+                wynik = Cezar.szyfruj(key, text)
             else:
                 wynik = 'Podaj literę o lub z'
             return redirect(reverse('cezar', kwargs={'wynik': wynik}))
