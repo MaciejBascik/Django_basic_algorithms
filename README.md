@@ -4,7 +4,7 @@
 A project is a page showing the operation of 9 basic algorithms for sorting and encryption of data. Site uses mainly django framework with addition of html, css and bootstrap framework. A simple school project presenting acquired skills in a given technique.
 ## Authors
 
-- [@MaciejBascik](https://www.github.com/MaciejBaścik)
+- [@MaciejBascik](https://www.github.com/MaciejBascik)
 
 
 ## Already available
