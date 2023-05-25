@@ -179,7 +179,7 @@ def babelkoweDate(request):
             lista = lista.split(',')
             for i in range(0, len(lista)):
                 lista[i] = int(lista[i])
-            wynik = Polska.polska(lista) 
+            wynik = Babelkowe.babelkowe(lista) 
 
         return redirect(reverse('babelkowe', kwargs={'wynik': wynik}))
     else:
