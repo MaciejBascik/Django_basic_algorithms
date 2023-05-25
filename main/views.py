@@ -104,7 +104,7 @@ def resztaDate(request):
             for nominal, ilosc in wynik.items():
                 wynik = ("{} zł x {}".format(nominal, ilosc))
                 wynikLista.append(wynik)
-            return redirect(reverse('reszta', kwargs={'wynikLista0': wynikLista[0]}))
+            return redirect(reverse('reszta', kwargs={'wynikLista0': wynikLista[0],'wynikLista1': wynikLista[1],'wynikLista2': wynikLista[2],'wynikLista3': wynikLista[3],'wynikLista4': wynikLista[4],'wynikLista5': wynikLista[5]}))
         else:
             form = ResztaForm()
         return render(request, 'main/resztaDate.html', {'form': form})
