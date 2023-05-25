@@ -27,3 +27,4 @@ It's school project but could be also used for education purposes.
 #### ChangeLog
 
 *(14.05.2023 22:19) Fixed SzyfrCezara by fixing multiple posting causing multiple results displayed on the page*
+*(25.05.2023 20:00) Fixed All views function by adding ValueErrors Handling*
