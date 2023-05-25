@@ -3,7 +3,7 @@ from django import forms
 class LuhnaForm(forms.Form):
     number = forms.CharField(label="Podaj numer karty", max_length=None, required=True)
 class CezarForm(forms.Form):
-    sign = forms.CharField(label="Zakodować czy odkodować (z/o)", max_length=None, required=True)
+    sign = forms.CharField(label="Zakodować czy odkodować (z/o)", max_length=1, required=True)
     text = forms.CharField(label="Wpisz swój tekst", max_length=100,required=True)
     key = forms.CharField(label="Wpisz miejsce przesuniecia alfabetu", max_length=None,required=True)
  
