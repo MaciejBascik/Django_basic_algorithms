@@ -1,11 +1,23 @@
 {%extends 'main/base.html'%}
 {%block content%}
 
-<h1 class="text-center">Algorytm sortowania polski!</h1><br>
+<h1 class="text-center">Polish Flag Algorithm!</h1><br>
 <div class="text-center">
-    <h1>{{wynik}}</h1>
-
+    {% if result %}
+    <h1>{{result|linebreaks}}</h1><br><br><br>
+    {%endif%}
 </div>
+<form method="post">
+    {% csrf_token %}
+    Enter array (comma between) <input type="text" max_length=None required=True name="arr"><br><br>
+    <button type="submit">Submit</button>
+</form>
+<br><br><br>
+<h5>The Polish flag algorithm sorts the numbers given by the user into 2 groups of numbers to refer to the
+    to the 2 colors of the Polish flag.</h5>.
 
-</body>
+
+
+
+
 {%endblock%}

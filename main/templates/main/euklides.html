@@ -1,13 +1,24 @@
 {%extends 'main/base.html'%}
 {%block content%}
 
-<h1 class="text-center">Algorytm Euklidesa!</h1>
-
+<h1 class="text-center">Bubble Sort!</h1><br>
 <div class="text-center">
-
-    <h1>{{wynik}}</h1>
-
+    {% if result %}
+    <h1>{{result|linebreaks}}</h1><br><br><br>
+    {%endif%}
 </div>
+<form method="post">
+    {% csrf_token %}
+    Enter number one <input type="number" max_length=None required=True name="one"><br><br>
+    Enter number two <input type="number" max_length=None required=True name="two"><br><br>
+    <button type="submit">Submit</button>
+</form>
+<br><br><br>
+<h5>Euclid's algorithm is an algorithm for determining the greatest common divisor of two numbers. </h5>
 
-</body>
+
+
+
+
+
 {%endblock%}

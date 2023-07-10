@@ -1,0 +1,33 @@
+{%extends 'main/base.html' %}
+
+
+{% block content %}
+
+{% if error %}
+<center>
+    <div class="alert alert-danger" role="alert" style="margin-top: -50px;">
+        {{error}}
+    </div>
+</center>
+{% endif %}
+<h1>Register your account!</h1><br>
+<form method="post">
+    {% csrf_token %}
+    <div id="username">
+        <label for="username">Username:</label>
+        <input type="text" name="username">
+    </div>
+    <div id="password">
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+    </div>
+    <div id="email">
+        <label for="email">Email:</label>
+        <input type="email" name="email">
+    </div>
+
+    <input type="submit" value="register">
+</form>
+
+
+{% endblock %}

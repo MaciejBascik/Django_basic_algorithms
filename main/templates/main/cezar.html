@@ -2,13 +2,27 @@
 {%block content%}
 <br>
 
-<h1 class="text-center">Algorytm Cezara!</h1><br>
-
-
-<br><br><br>
-
+<h1 class="text-center">Caesar cipher!</h1><br>
 <div class="text-center">
-    <h1>{{wynik|linebreaks}}</h1><br><br><br>
+    {% if result %}
+    <h1>{{result|linebreaks}}</h1><br><br><br>
+    {%endif%}
 </div>
+<form method="post">
+    {% csrf_token %}
+    Enter the character (o - decode | z - encode) <input type="text" max_length=None required=True name="sign"><br><br>
+    Enter text <input type="text" max_length=100 required=True name="text"><br><br>
+    Enter the number of shifting places of the alphabet <input type="number" max_length=None required=True
+        name="key"><br><br>
+
+    <button type="submit">Submit</button>
+</form>
+<br><br><br>
+<h5>Caesar's cipher encodes or decodes the message given by the user. It is the simplest encryption technique. The space
+    field specifies the number of letter offsets in the alphabet</h5>
+
+
+
+
 
 {%endblock%}

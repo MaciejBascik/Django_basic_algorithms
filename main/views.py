@@ -1,222 +1,164 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render,redirect
 from .algorytmy.luhna import Luhna
 from .algorytmy.cezar import Cezar
 from .algorytmy.reszta import Reszta
 from .algorytmy.francja import Francja
 from .algorytmy.polska import Polska
+#from .algorytmy.polska import Polska
 from .algorytmy.binarny import Binarny
 from .algorytmy.wybor import Wybor
 from .algorytmy.euklides import Euklides
-from .algorytmy.babelkowy import Babelkowe
-from .forms import CezarForm,BinarnyForm,ResztaForm,PolskaForm,FrancjaForm,WyborForm,EuklidesForm,LuhnaForm,BabelkoweForm
+from .algorytmy.Bubble import Bubble
+from django.contrib.auth.models import User
+from users import views
+
 
 def home(request):
-    return render(request, 'main/home.html')
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    return render(request, 'main/home.html',{"username":request.user})
 
-def luhnaDate(request):
-    try:
-        if request.method == 'POST':
-            form = LuhnaForm(request.POST)
-            if form.is_valid():
-                number = form.cleaned_data['number']
-                if number.isnumeric() == False:
-                    raise ValueError
-                else:
-                    wynik = Luhna.Luhn(number)
-                    return redirect(reverse('luhna', kwargs={'wynik': wynik}))
-        else:
-            form = LuhnaForm()
-        return render(request, 'main/luhnaDate.html', {'form': form})
-    except ValueError:
-        wynik = 'Podaj poprawny format!'
-        return redirect(reverse('luhna', kwargs={'wynik': wynik}))
-def luhna(request, wynik):
-    return render(request, 'main/luhna.html', {'wynik': wynik})
-
-
-
-def cezarDate(request):
+def luhna(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
     if request.method == 'POST':
-        form = CezarForm(request.POST)
-        if form.is_valid(): 
-            try:
-                text = form.cleaned_data['text']
-                key = form.cleaned_data['key']
-                sign = form.cleaned_data['sign']
-                if text.isnumeric() == False and key.isnumeric() == True:
-                    key = int(key)
-                    if sign.upper() == 'O':
-                        wynik = Cezar.deszyfruj(key, text)
-                    elif sign.upper() == 'Z':
-                        wynik = Cezar.szyfruj(key, text)
-                    else:
-                        wynik = 'Podaj literę o lub z'
-                    return redirect(reverse('cezar', kwargs={'wynik': wynik}))
-                else:
-                    raise ValueError
-            except ValueError:
-                wynik = 'Niepoprawny format'
-                return redirect(reverse('cezar', kwargs={'wynik': wynik}))
-    else:
-        form = CezarForm()
-    return render(request, 'main/cezarDate.html', {'form': form})
-
-def cezar(request, wynik):
-    return render(request, 'main/cezar.html', {'wynik': wynik})
+            number = request.POST.get('number')
+            result = Luhna.Luhn(number)
+            return render(request,'main/luhna.html', {'result': result})
+    return render(request, 'main/luhna.html', {"username":request.user})
 
 
-def binarnyDate(request):
+def cezar(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
     if request.method == 'POST':
-        form = BinarnyForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data['data']
-            cel = form.cleaned_data['cel']
-            cel = int(cel)
+            text = request.POST.get('text')
+            key = int(request.POST.get('key'))
+            sign = request.POST.get('sign')
+            if sign.upper() == 'O':
+                result = Cezar.deszyfruj(key, text)
+                return render(request,'main/cezar.html', {'result': result})
+            elif sign.upper() == 'Z':
+                result = Cezar.szyfruj(key, text)
+                return render(request,'main/cezar.html', {'result': result})
+            else:
+                result = 'Podaj literę o lub z'
+                return render('main/cezar.html', {'result': result})
+    return render(request, 'main/cezar.html', {"username":request.user})
+
+
+
+def binarny(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    if request.method == 'POST':
+            data = request.POST.get('data')
+            key =  int(request.POST.get('key'))
             data = data.split(',')
             for i in range(0, len(data)):
                 data[i] = int(data[i])
-            wynik = Binarny.Wyszukaj(data,cel)     
-            if wynik != -1:
-                wynikD = f"Element znajduję się na pozycji indeksu {str(wynik)}"
-                print(wynikD)
+            result = Binarny.Wyszukaj(data,key)
+            if result != -1:
+                resultText = f"Element is on index position {str(result)}"
             else:
-                wynikD = ("Element nie znajduje się w tablicy")
-
-            return redirect(reverse('binarny', kwargs={'wynik': wynikD}))
-    else:
-        form = BinarnyForm()
-    return render(request, 'main/binarnyDate.html', {'form': form})
-
-def binarny(request, wynik):
-    return render(request, 'main/binarny.html', {'wynik': wynik})
+                resultText = ("Element isn't in array")
+            return render(request,'main/binarny.html', {'result': resultText})
+   
+    return render(request,'main/binarny.html',{"username":request.user})
 
 
-def resztaDate(request):
-    try:
-        if request.method == 'POST':
-            form = ResztaForm(request.POST)
-            if form.is_valid():
-                kwota = form.cleaned_data['kwota']
-                kwotaWprowadzona = form.cleaned_data['kwotaWprowadzona']
-                wynik = Reszta.Wydaj(kwota,kwotaWprowadzona)     
-                wynikLista = []
-            for nominal, ilosc in wynik.items():
-                wynik = ("{} zł x {}".format(nominal, ilosc))
-                wynikLista.append(wynik)
-            return redirect(reverse('reszta', kwargs={'wynikLista0': wynikLista[0],'wynikLista1': wynikLista[1],'wynikLista2': wynikLista[2],'wynikLista3': wynikLista[3],'wynikLista4': wynikLista[4],'wynikLista5': wynikLista[5]}))
-        else:
-            form = ResztaForm()
-        return render(request, 'main/resztaDate.html', {'form': form})
-    except ValueError:
-        wynik = 'Podaj poprawny format'
-        return redirect(reverse('reszta', kwargs={'wynikLista0': wynik,'wynikLista1': wynik,'wynikLista2': wynik,'wynikLista3': wynik,'wynikLista4': wynik,'wynikLista5': wynik}))
-def reszta(request, wynikLista0,wynikLista1,wynikLista2,wynikLista3,wynikLista4,wynikLista5):
-    return render(request, 'main/reszta.html', {'wynikLista0': wynikLista0,'wynikLista1': wynikLista1,'wynikLista2': wynikLista2,'wynikLista3': wynikLista3,'wynikLista4': wynikLista4,'wynikLista5': wynikLista5})
-
-def francjaDate(request):
-    try:
-        if request.method == 'POST':
-            form = FrancjaForm(request.POST)
-            if form.is_valid():
-                lista = form.cleaned_data['arr']
-                lista = lista.split(',')    
-                for i in range(0, len(lista)):
-                    lista[i] = int(lista[i])
-
-                Francja.quicksort(lista,0,len(lista) - 1)
-
-            return redirect(reverse('francja', kwargs={'wynik': lista}))
-        else:
-            form = FrancjaForm()
-        return render(request, 'main/francjaDate.html', {'form': form})
-    except ValueError:
-            wynik = 'Podaj poprawny format'
-            return redirect(reverse('francja', kwargs={'wynik': wynik}))
-
-def francja(request, wynik):
-    return render(request, 'main/francja.html', {'wynik': wynik})
-
-def polskaDate(request):
-    try:
-        if request.method == 'POST':
-            form = PolskaForm(request.POST)
-            if form.is_valid():
-                lista = form.cleaned_data['arr']
-                lista = lista.split(',')
-                for i in range(0, len(lista)):
-                    lista[i] = int(lista[i])
-                wynik = Polska.polska(lista) 
-
-            return redirect(reverse('polska', kwargs={'wynik': wynik}))
-        else:
-            form = PolskaForm()
-        return render(request, 'main/polskaDate.html', {'form': form})
-    except ValueError:
-            wynik = 'Podaj poprawny format'
-            return redirect(reverse('polska', kwargs={'wynik': wynik}))
-
-def polska(request, wynik):
-    return render(request, 'main/polska.html', {'wynik': wynik})
-
-def wyborDate(request):
-
-    try:
-        if request.method == 'POST':
-            form = WyborForm(request.POST)
-            if form.is_valid():
-                lista = form.cleaned_data['arr']
-                lista = lista.split(',')
-                for i in range(0, len(lista)):
-                    lista[i] = int(lista[i])
-                Wybor.selekcja(lista, len(lista)) 
-                wynik = lista
-            return redirect(reverse('wybor', kwargs={'wynik': wynik}))
-        else:
-            form = WyborForm()
-        return render(request, 'main/wyborDate.html', {'form': form})
-    except ValueError:
-            wynik = 'Podaj poprawny format'
-            return redirect(reverse('wybor', kwargs={'wynik': wynik}))
-def wybor(request, wynik):
-    return render(request, 'main/wybor.html', {'wynik': wynik})
-
-
-def euklidesDate(request):
-    try:
-        if request.method == 'POST':
-            form = EuklidesForm(request.POST)
-            if form.is_valid():
-                a = int(form.cleaned_data['a'])
-                b = int(form.cleaned_data['b'])
-                wynik = Euklides.euklides(a,b) 
-
-            return redirect(reverse('euklides', kwargs={'wynik': wynik}))
-        else:
-            form = EuklidesForm()
-        return render(request, 'main/euklidesDate.html', {'form': form})
-    except ValueError:
-            wynik = 'Podaj poprawny format'
-            return redirect(reverse('euklides', kwargs={'wynik': wynik}))
-def euklides(request, wynik):
-    return render(request, 'main/euklides.html', {'wynik': wynik})
-
-def babelkoweDate(request):
+def reszta(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
     if request.method == 'POST':
-        form = BabelkoweForm(request.POST)
-        if form.is_valid():
-            lista = form.cleaned_data['arr']
-            lista = lista.split(',')
-            for i in range(0, len(lista)):
-                lista[i] = int(lista[i])
-            Babelkowe.babelkowe(lista) 
-            wynik = lista
+            price = int(request.POST.get('price'))
+            pricePaid = int(request.POST.get('pricePaid'))
+            result = Reszta.Wydaj(price,pricePaid)     
+            ResultArray = []
+            for nominal, ilosc in result.items():
+                result = ("{} zł x {}".format(nominal, ilosc))
+                ResultArray.append(result)
+            print(ResultArray[0])
+            return render(request,'main/reszta.html', {'wynikLista0': ResultArray[0],'wynikLista1': ResultArray[1],'wynikLista2': ResultArray[2],'wynikLista3': ResultArray[3],'wynikLista4': ResultArray[4],'wynikLista5': ResultArray[5]})
+    return render(request, 'main/reszta.html', {"username":request.user})
 
-        return redirect(reverse('babelkowe', kwargs={'wynik': wynik}))
-    else:
-        form = BabelkoweForm()
-    return render(request, 'main/babelkoweDate.html', {'form': form})
 
-def babelkowe(request, wynik):
-    return render(request, 'main/babelkowe.html', {'wynik': wynik})
+def francja(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    if request.method == 'POST':
+            arr = request.POST.get('arr')
+            arr = arr.split(',')
+            for i in range(0, len(arr)):
+                arr[i] = int(arr[i])
+
+            Francja.quicksort(arr,0,len(arr) - 1)
+
+            return render(request,'main/francja.html',{'result': arr})
+    return render(request, 'main/francja.html', {"username":request.user})
+
+
+
+def polska(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    if request.method == 'POST':
+            arr = request.POST.get('arr')
+            arr = arr.split(',')
+            for i in range(0, len(arr)):
+                arr[i] = int(arr[i])
+            result = Polska.polska(arr) 
+
+            return render(request, 'main/polska.html', {'result': result})
+    return render(request, 'main/polska.html', {"username":request.user})
+
+
+def wybor(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    if request.method == 'POST':
+            arr = request.POST.get('arr')
+            arr = arr.split(',')
+            for i in range(0, len(arr)):
+                arr[i] = int(arr[i])
+            Wybor.selekcja(arr, len(arr)) 
+            result = arr
+            return render(request, 'main/wybor.html', {'result': result})
+    return render(request, 'main/wybor.html', {"username":request.user})
+
+
+
+
+
+def euklides(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    if request.method == 'POST':
+            numberOne = int(request.POST.get('one'))
+            numberTwo = int(request.POST.get('two'))
+            result = Euklides.euklides(numberOne,numberTwo) 
+
+            return render(request, 'main/euklides.html', {'result': result})
+    return render(request, 'main/euklides.html', {"username":request.user})
+
+
+
+
+
+def babelkowe(request):
+    if not request.user.is_authenticated:
+        return redirect(views.loginView)
+    if request.method == 'POST':
+            arr = request.POST.get('arr')
+            arr = arr.split(',')
+            print(arr)
+            for i in range(0, len(arr)):
+                    arr[i] = int(arr[i])
+            Bubble.Bubble(arr) 
+            result = arr
+
+            return render(request,'main/babelkowe.html', {'result': result})
+    return render(request, 'main/babelkowe.html', {"username":request.user})
+
+
 

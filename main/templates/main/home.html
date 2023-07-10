@@ -1,18 +1,34 @@
 {%extends 'main/base.html'%}
 {%block content%}
 
+
+{% if successLogOut %}
+<center>
+    <div class="alert alert-success" role="alert" style="margin-top: -50px;">
+        {{successLogOut}}
+    </div>
+</center>
+{%endif%}
+{% if success %}
+<center>
+    <div class="alert alert-success" role="alert" style="margin-top: -50px;">
+        {{success}}
+    </div>
+</center>
+{%endif%}
+
 <body><br>
-    <h1 class="text-center">Wybierz odpowiedni algorytm!</h1><br>
+    <h1 class="text-center">Choose algorithm!</h1><br>
     <div class="text-center">
-        <a href="{% url 'luhnaDate' %}" class="btn btn-primary">Luhna</a>
-        <a href="{% url 'cezarDate' %}" class="btn btn-secondary">Cezar</a>
-        <a href="{% url 'binarnyDate' %}" class="btn btn-success">Wyszukiwanie binarne</a>
-        <a href="{% url 'resztaDate' %}" class="btn btn-danger">Wydawanie reszty</a>
-        <a href="{% url 'francjaDate' %}" class="btn btn-warning">Sortowanie francuskie</a>
-        <a href="{% url 'polskaDate' %}" class="btn btn-info">Sortowanie polskie</a>
-        <a href="{% url 'euklidesDate' %}" class="btn btn-light">Euklides</a>
-        <a href="{% url 'wyborDate' %}" class="btn btn-dark">Sortowanie przez wybór</a>
-        <a href="{% url 'babelkoweDate' %}" class="btn btn-primary">Sortowanie bąbelkowe</a>
+        <a href="{% url 'luhna' %}" class="btn btn-primary">Luhn</a>
+        <a href="{% url 'cezar' %}" class="btn btn-secondary">Caesar cipher</a>
+        <a href="{% url 'binarny' %}" class="btn btn-success">Binary Search</a>
+        <a href="{% url 'reszta' %}" class="btn btn-danger">Giving Change</a>
+        <a href="{% url 'francja' %}" class="btn btn-warning">French Flag Sort</a>
+        <a href="{% url 'polska' %}" class="btn btn-info">Polish Flag Sort</a>
+        <a href="{% url 'euklides' %}" class="btn btn-light">Euklides</a>
+        <a href="{% url 'wybor' %}" class="btn btn-dark">Sort by choice</a>
+        <a href="{% url 'babelkowe' %}" class="btn btn-primary">Bubble Sort</a>
     </div>
 
 </body>

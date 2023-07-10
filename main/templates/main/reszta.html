@@ -1,19 +1,25 @@
 {%extends 'main/base.html'%}
 {%block content%}
-<br>
 
-<h1 class="text-center">Algorytm Wydawania reszty!</h1><br>
-
-
-<br>
+<h1 class="text-center">Giving change algorithm!</h1><br>
 <div class="text-center">
-    <h3>Twoja reszta może być wydana w monetach: </h1>
-
-        <h2>{{wynikLista0}}<br>{{wynikLista1}}<br>{{wynikLista2}}<br>{{wynikLista3}}<br>{{wynikLista4}}<br>{{wynikLista5}}
-        </h2>
-
-
-
+    {% if wynikLista0 %}
+    <h2>{{wynikLista0}}<br>{{wynikLista1}}<br>{{wynikLista2}}<br>{{wynikLista3}}<br>{{wynikLista4}}<br>{{wynikLista5}}
+    </h2>
+    {%endif%}<br><br>
 </div>
+<form method="post">
+    {% csrf_token %}
+    Enter price <input type="text" max_length=None required=True name="price"><br><br>
+    Enter amount paid <input type="text" max_length=None required=True name="pricePaid"><br><br>
+    <button type="submit">Submit</button>
+</form>
+<br><br><br>
+<h5>Algorithm of giving change gives the amount of change if it is needed. It issues in what
+    smallest amount of coins and banknotes. Algorithm works with Złoty Polski currency (polish money)</h5>.
+
+
+
+
 
 {%endblock%}

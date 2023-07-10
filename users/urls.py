@@ -15,22 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from . import views
-
+from users import views
 
 urlpatterns = [
-    
-    path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('luhna/', views.luhna, name='luhna'),
-    path('cezar/', views.cezar, name='cezar'),
-    path('binarny/', views.binarny, name='binarny'),
-    path('reszta/', views.reszta, name='reszta'),
-    path('francja/', views.francja, name='francja'),
-    path('polska/', views.polska, name='polska'),
-    path('euklides/', views.euklides, name='euklides'),
-    path('wybor/', views.wybor, name='wybor'),
-    path('babelkowe/', views.babelkowe, name='babelkowe'),
-
-    
+    path('login/', views.loginView, name='login'),
+    path('register/', views.registerView, name='register'),
+    path('logout/', views.logoutView, name='logout'),
 ]

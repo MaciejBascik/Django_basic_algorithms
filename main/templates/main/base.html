@@ -5,15 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Algorytmy</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head><br><br>
 <div class="text-center">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed mb-20" style="margin-top: -50px;">
+        <a class="navbar-brand" href="{% url 'home' %}">Algorithms Site by Maciej Baścik</a>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <form class="inline my-2 my-lg-0">
+                {% if username %}
+                <h7 class="mr-sm-2"> {{username}} </h7>
+                <a href="{% url 'logout' %}" class="btn mr-sm-2"> logout </button></a>
+                {% else %}
+                <h7 class="mr-sm-2"> Login yourself </h7>
+                <a href="{% url 'login' %}" class="btn btn-outline-success my-2 my-sm-0">login</a>
+                {%endif%}
+            </form>
+        </div>
+    </nav><br><br>
     {%block content%}
     {%endblock%}
     <br><br><br>
-    <h5 class="link"><a href="{% url 'home' %}">Wróć do strony głównej</a></h5>
+    <h5 class="link"><a href="{% url 'home' %}">Back to homepage</a></h5>
 
 </div>
 

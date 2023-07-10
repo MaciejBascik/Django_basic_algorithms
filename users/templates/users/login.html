@@ -1,0 +1,39 @@
+{%extends 'main/base.html' %}
+
+
+{% block content %}
+
+{% if error %}
+<center>
+    <div class="alert alert-danger" role="alert" style="margin-top: -50px;">
+        {{error}}
+    </div>
+</center>
+{% endif %}
+{% if errorLogin %}
+<center>
+    <div class="alert alert-danger" role="alert" style="margin-top: -50px;">
+        {{errorLogin}}
+    </div>
+</center>
+{% endif %}
+
+
+<h1>Log in your account to access this site!</h1>
+<h6>If you don't have account, <a href="{% url 'register' %}">create it!</a></h6><br>
+<form method="post">
+    {% csrf_token %}
+    <div id="username">
+        <label for="username">Username:</label>
+        <input type="text" name="username">
+    </div>
+    <div id="password">
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+    </div>
+
+    <input type="submit" value="login">
+</form>
+
+
+{% endblock %}

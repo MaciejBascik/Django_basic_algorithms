@@ -1,11 +1,27 @@
 {%extends 'main/base.html'%}
 {%block content%}
+<br>
 
-<h1 class="text-center">Algorytm Wyszukiwania Binarnego!</h1><br>
+<h1 class="text-center">Binary Search!</h1><br>
 <div class="text-center">
-    <h1>{{wynik}}</h1>
-
+    {% if result %}
+    <h1>{{result|linebreaks}}</h1><br><br><br>
+    {%endif%}
 </div>
+<form method="post">
+    {% csrf_token %}
+    Enter the number (comma between) <input type="text" max_length=None required=True name="data"><br><br>
+    Enter the number which you are looking for <input type="number" max_length=None required=True name="key"><br>
 
-</body>
+    <button type="submit">Submit</button>
+</form>
+<br><br><br>
+<h5>The algorithm determines whether the searched element is located in the ordered array and, if it is, provides
+    its index. </h5>
+<h6 class="font-italic">*The list must be sorted from smallest to largest*</h6>
+
+
+
+
+
 {%endblock%}
